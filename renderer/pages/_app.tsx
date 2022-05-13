@@ -1,10 +1,27 @@
 import React from 'react';
-import type { AppProps } from 'next/app';
+import Head from 'next/head';
 
-import '../styles/globals.css';
+import 'tailwindcss/tailwind.css';
+import '../styles/main.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+const App = ({ Component, pageProps }: any) => {
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-export default MyApp
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+        <title>Bingo</title>
+      </Head>
+
+      <Component {...pageProps} />
+    </>
+  );
+};
+
+export default App;
