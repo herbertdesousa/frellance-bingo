@@ -4,6 +4,7 @@ import {
   BrowserWindowConstructorOptions,
 } from 'electron';
 import Store from 'electron-store';
+import * as path from 'path';
 
 export default (windowName: string, options: BrowserWindowConstructorOptions): BrowserWindow => {
   const key = 'window-state';
@@ -71,6 +72,7 @@ export default (windowName: string, options: BrowserWindowConstructorOptions): B
     ...options,
     ...state,
     autoHideMenuBar: true,
+    icon: path.join(__dirname, 'resources', 'icon.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
