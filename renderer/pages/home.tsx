@@ -76,76 +76,72 @@ const Home: React.FC = () => {
   };
 
   return (
-    <main className="p-12">
-      <div className="flex justify-between">
-        <p />
-        <div className="flex flex-col items-end">
-          <Button variant="outline" size="sm" onClick={resetGame}>
-            Reiniciar
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={drawnNumber}
-            className="mt-2"
-          >
-            Sortear
-          </Button>
-        </div>
+    <main className="flex p-12">
+      <div>
+        <ul
+          className="grid grid-cols-10 gap-2"
+          style={{ maxWidth: itemSize * 10 + 8 * 10 }}
+        >
+          {topNumbers.map(item => (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+            <li
+              key={item}
+              className={`
+                flex items-center justify-center font-semibold rounded transition cursor-pointer
+                ${
+                  numbers.drawn.find(i => i === item)
+                    ? 'bg-blue text-accent-0 text-5xl'
+                    : 'bg-accent-2 text-accent-6 text-2xl'
+                }
+              `}
+              onClick={() => selectNumber(item)}
+              onKeyDown={() => selectNumber(item)}
+              style={{ height: itemSize, width: itemSize }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+        <ul
+          className="grid grid-cols-5 gap-2 mt-2"
+          style={{ maxWidth: (itemSize * 2 + 8) * 5 + 8 * 5 }}
+        >
+          {bottomNumbers.map(item => (
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+            <li
+              key={item}
+              className={`
+                flex items-center justify-center font-semibold rounded cursor-pointer
+                ${
+                  numbers.drawn.find(i => i === item)
+                    ? 'bg-blue text-accent-0 text-5xl'
+                    : 'bg-accent-2 text-accent-6 text-2xl'
+                }
+              `}
+              onClick={() => selectNumber(item)}
+              onKeyDown={() => selectNumber(item)}
+              style={{ height: itemSize, width: itemSize * 2 + 8 }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <div className="mt-6 flex">
+      <div className="h-full ml-12">
         <div>
-          <ul
-            className="grid grid-cols-10 gap-2"
-            style={{ maxWidth: itemSize * 10 + 8 * 10 }}
-          >
-            {topNumbers.map(item => (
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-              <li
-                key={item}
-                className={`
-                  flex items-center justify-center font-semibold rounded transition cursor-pointer
-                  ${
-                    numbers.drawn.find(i => i === item)
-                      ? 'bg-blue text-accent-0 text-5xl'
-                      : 'bg-accent-2 text-accent-6 text-2xl'
-                  }
-                `}
-                onClick={() => selectNumber(item)}
-                onKeyDown={() => selectNumber(item)}
-                style={{ height: itemSize, width: itemSize }}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-          <ul
-            className="grid grid-cols-5 gap-2 mt-2"
-            style={{ maxWidth: (itemSize * 2 + 8) * 5 + 8 * 5 }}
-          >
-            {bottomNumbers.map(item => (
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-              <li
-                key={item}
-                className={`
-                  flex items-center justify-center font-semibold rounded cursor-pointer
-                  ${
-                    numbers.drawn.find(i => i === item)
-                      ? 'bg-blue text-accent-0 text-5xl'
-                      : 'bg-accent-2 text-accent-6 text-2xl'
-                  }
-                `}
-                onClick={() => selectNumber(item)}
-                onKeyDown={() => selectNumber(item)}
-                style={{ height: itemSize, width: itemSize * 2 + 8 }}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="h-full ml-12">
+          <div className="flex flex-col mb-6">
+            <Button variant="outline" size="sm" onClick={resetGame}>
+              Reiniciar
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={drawnNumber}
+              className="mt-2"
+            >
+              Sortear
+            </Button>
+          </div>
           <div className="flex flex-col p-6 bg-accent-2 rounded">
             <strong className="text-2xl font-semibold">Linhas</strong>
             <div className="grid grid-cols-2 gap-4 mt-6">
@@ -184,30 +180,30 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="h-full flex flex-1 justify-end ml-12 rounded">
-          <div className="mb-3">
-            <strong className="text-3xl font-semibold">Ultimos Números</strong>
-            <h1 className="text-8xl font-semibold">
-              {numbers.drawn[numbers.drawn.length - 1] || '-'}
-            </h1>
-            <ul className="mt-4">
-              {numbers.drawn
-                .slice(numbers.drawn.length > 6 ? numbers.drawn.length - 6 : 0)
-                .reverse()
-                .map((item, index) => {
-                  if (index === 0) return <></>;
-                  return (
-                    <li
-                      className="text-8xl font-semibold text-accent-3"
-                      key={item}
-                    >
-                      {item}
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
+      <div className="h-full flex flex-1 justify-end ml-12 rounded">
+        <div className="mb-3">
+          <strong className="text-3xl font-semibold">Ultimos Números</strong>
+          <h1 className="text-8xl font-semibold">
+            {numbers.drawn[numbers.drawn.length - 1] || '-'}
+          </h1>
+          <ul className="mt-4">
+            {numbers.drawn
+              .slice(numbers.drawn.length > 6 ? numbers.drawn.length - 6 : 0)
+              .reverse()
+              .map((item, index) => {
+                if (index === 0) return <></>;
+                return (
+                  <li
+                    className="text-8xl font-semibold text-accent-3"
+                    key={item}
+                  >
+                    {item}
+                  </li>
+                );
+              })}
+          </ul>
         </div>
       </div>
     </main>
